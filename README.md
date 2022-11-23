@@ -1,4 +1,4 @@
-# cookbook_autoloader
+# Cookbook Autoloader
 Auto Load for Make Your Own Cookbook
 
 Based heavily on:
