@@ -1,5 +1,10 @@
 # Cookbook Autoloader
 Auto Load for Make Your Own Cookbook
 
-Based heavily on:
-https://www.youtube.com/watch?v=_ST_6heCS2I
+## Background
+For the Christmas 2023, my wife decided she would like to put together a famly cookbook.  After a few days of poking around, we came across createmycookbook.com which looked like it would meat our needs.  Having done cookbooks in the past, we knew the most difficult and time consuming part was entering the recipes into whatever proprietary form the online cookbook requied.  We also knew we didn't want to do anything that required people to sign up for unncessary accounts.
+
+Given those constraints, we built our own google form, which collected information on ingredients, directions, author, yield, etc.  The form was sent to family members to complete as many times as they wanted.  Once all the recipes were collected, the data was scrubbed into the Recipe Builder.csv included in this repo.  This saved us from manually entering all 60+ recipes by hand, however we still had one more issue.  We needed to get the recipes from the csv file into the createmycookbook.com site.  While this could be accomplished manually with good old "copy/paste" that didn't seem like fun.  Also, our time was limited as we were preparing to bring our newborn daughter home from the NICU any day.  Whatever will I do?
+
+## Solution
+I had heard of selenium in python a lot, but really had limited need to use it until now.  Selenium is a great web automation tool, and has been used for filling in forms before.  After some googling I found a [youtube](https://www.youtube.com/watch?v=_ST_6heCS2I) video that did a pretty good job getting me started.  Like many programming tasks, what started as an easy task was complicated a little bit the further I dug.  I have added lots of comments in the code to explain some decision making.  In particular, there was a login screen to deal with on the site.  Also, there were several "non-id'd" html objects that had to be referenced.  Lastly, some of the Youtube video used deprecated featuers that had to be updated. All of these solutions are documnted in the code.  Enjoy!
