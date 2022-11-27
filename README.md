@@ -2,7 +2,7 @@
 Auto Load for Make Your Own Cookbook
 
 ## Background
-For the Christmas 2023, my wife decided she would like to put together a famly cookbook.  After a few days of poking around, we came across createmycookbook.com which looked like it would meat our needs.  Having done cookbooks in the past, we knew the most difficult and time consuming part was entering the recipes into whatever proprietary form the online cookbook requied.  We also knew we didn't want to do anything that required people to sign up for unncessary accounts.
+For the Christmas 2022, my wife decided she would like to put together a famly cookbook.  After a few days of poking around, we came across createmycookbook.com which looked like it would meat our needs.  Having done cookbooks in the past, we knew the most difficult and time consuming part was entering the recipes into whatever proprietary form the online cookbook requied.  We also knew we didn't want to do anything that required people to sign up for unncessary accounts.
 
 Given those constraints, we built our own google form, which collected information on ingredients, directions, author, yield, etc.  The form was sent to family members to complete as many times as they wanted.  Once all the recipes were collected, the data was scrubbed into the Recipe Builder.csv included in this repo.  This saved us from manually entering all 60+ recipes by hand, however we still had one more issue.  We needed to get the recipes from the csv file into the createmycookbook.com site.  While this could be accomplished manually with good old "copy/paste" that didn't seem like fun.  Also, our time was limited as we were preparing to bring our newborn daughter home from the NICU any day.  Whatever will I do?
 
