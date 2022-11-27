@@ -1,12 +1,14 @@
-#initial commit file
-
+#autoloader.py
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
 import csv as csv 
 import pandas as pd
 
-
+#in order to get the selenium chrome driver to work, you must download it.
+#more info can be found at the following sites:
+#https://pypi.org/project/selenium/
+#https://chromedriver.chromium.org/downloads
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("disable-infobars")
 chrome_options.add_experimental_option("detach", True)
@@ -16,24 +18,23 @@ driver = webdriver.Chrome(executable_path = "C:/Users/Andrew/Documents/selenium_
 
 url = "https://createmycookbook.com/projects/VjM4tW5Ey?default_email=andrewdau21%40yahoo.com"
 
-
-filename = 'Recipe Builder_try2.csv'
+#here is where I read in the data I want to use to build the cookbook.
+filename = 'Recipe Builder.csv'
 df = pd.read_csv(filename)
 
 
 driver.get(url)
 
+#I used two functions to control this program.  First a login, second the actual form filler.
 def login_form(userid, pwd):
+     #this login screen comes as a popup, so I use handles to figure out where I am
      main = driver.current_window_handle
-     print('main')
-     print(main)
      driver.find_element("xpath", "//*[text()='Login Here']").click()
      
      time.sleep(3)
-     print('driver handles')
-     print(driver.window_handles)
      popup = driver.window_handles
      driver.switch_to.window(popup[1])
+     #login and password are passed to the function when called below
      login = driver.find_element("id", "email_address")
      password = driver.find_element("name", "password")
      
@@ -44,19 +45,18 @@ def login_form(userid, pwd):
      driver.find_element("name", "commit").click()
 
      driver.switch_to.window(popup[0])
-
+     #here is the call to the function that fills the form.  I used several delays to allow the site to load.
      time.sleep(5)
      for x in (range(len(df.index))):
         fill_form(df['Recipe Name'][x],df['Number of Servings (approximate)'][x], df['Ingredients'][x], df['Directions'][x], df['Cooking Time (Total cooking time, add more details in the instructions below)'][x], df['Dish Type'][x], df['Your Name'][x])
         time.sleep(6)
 
-     #driver.switch_to.window(driver.current_window_handle)
 
 
      
 
 
-
+#find the elements, then fill them.  The hard part here was just figuring out the object names.
 def fill_form(var1, var2, var3, var4, var5, var6, var7):
     print(driver.current_window_handle)
     recipe_name = driver.find_element("name", "name")
@@ -70,8 +70,6 @@ def fill_form(var1, var2, var3, var4, var5, var6, var7):
     #contributor_last_name= driver.find_element("id","contributor_last_name")
     
     
-    #recipe_name = driver.find_element(By.CLASS_NAME, "form-control ng-pristine ng-valid")
-
     time.sleep(3)
 
     recipe_name.send_keys(var1)
@@ -80,25 +78,17 @@ def fill_form(var1, var2, var3, var4, var5, var6, var7):
     recipe_directions.send_keys(var4)
     recipe_notes.send_keys(var5)
     recipe_category.send_keys(var6)
-    #recipe_author.send_keys(var7)
-    #contributor_first_name.send_keys('DeWar')
-    #contributor_last_name.send_keys('Cookbook')
-
-    #driver.find_element("css-selector", "pull-right btn btn-primary ladda-button").click()
+    
     driver.find_element("xpath", "//*[text()='Contribute Recipe']").click()
 
     time.sleep(5)
 
     driver.find_element("xpath", "//*[text()='Submit New Recipe']").click()
 
-    #recipe_name.submit()
+    
+    
+    
 
-    #print(inputs)
-
-    #inputs[0].send_keys(var1)
-
-
-#fill_form('Andrew',2, 3)
 
 
 login_form('aaa@yahoo.com', 'aaa')
