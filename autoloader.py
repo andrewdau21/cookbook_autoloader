@@ -3,6 +3,9 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
+import csv as csv 
+import pandas as pd
+
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("disable-infobars")
@@ -11,24 +14,91 @@ chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
 
 driver = webdriver.Chrome(executable_path = "C:/Users/Andrew/Documents/selenium_driver/chromedriver.exe",chrome_options = chrome_options )
 
-url = "https://createmycookbook.com/projects/VjM4tW5Ey?default_email=andrew_dau%40hotmail.com"
+url = "https://createmycookbook.com/projects/VjM4tW5Ey?default_email=andrewdau21%40yahoo.com"
+
+
+filename = 'Recipe Builder_try2.csv'
+df = pd.read_csv(filename)
+
 
 driver.get(url)
 
+def login_form(userid, pwd):
+     main = driver.current_window_handle
+     print('main')
+     print(main)
+     driver.find_element("xpath", "//*[text()='Login Here']").click()
+     
+     time.sleep(3)
+     print('driver handles')
+     print(driver.window_handles)
+     popup = driver.window_handles
+     driver.switch_to.window(popup[1])
+     login = driver.find_element("id", "email_address")
+     password = driver.find_element("name", "password")
+     
 
-def fill_form(var1, var2, var3):
+     login.send_keys(userid)
+     password.send_keys(pwd)
+
+     driver.find_element("name", "commit").click()
+
+     driver.switch_to.window(popup[0])
+
+     time.sleep(5)
+     for x in (range(len(df.index))):
+        fill_form(df['Recipe Name'][x],df['Number of Servings (approximate)'][x], df['Ingredients'][x], df['Directions'][x], df['Cooking Time (Total cooking time, add more details in the instructions below)'][x], df['Dish Type'][x], df['Your Name'][x])
+        time.sleep(6)
+
+     #driver.switch_to.window(driver.current_window_handle)
+
+
+     
+
+
+
+def fill_form(var1, var2, var3, var4, var5, var6, var7):
+    print(driver.current_window_handle)
     recipe_name = driver.find_element("name", "name")
+    recipe_yields = driver.find_element("id","recipe_yields")
+    recipe_ingredients = driver.find_element("id","recipe_ingredients")
+    recipe_directions = driver.find_element("id","recipe_directions")
+    recipe_notes= driver.find_element("id","recipe_notes")
+    recipe_category= driver.find_element("id","recipe_category")
+    #recipe_author= driver.find_element("id","recipe_original_author")
+    #contributor_first_name= driver.find_element("id","contributor_first_name")
+    #contributor_last_name= driver.find_element("id","contributor_last_name")
+    
+    
     #recipe_name = driver.find_element(By.CLASS_NAME, "form-control ng-pristine ng-valid")
 
     time.sleep(3)
 
-    recipe_name.send_keys('Fake Recipe Name')
+    recipe_name.send_keys(var1)
+    recipe_yields.send_keys(var2)
+    recipe_ingredients.send_keys(var3)
+    recipe_directions.send_keys(var4)
+    recipe_notes.send_keys(var5)
+    recipe_category.send_keys(var6)
+    #recipe_author.send_keys(var7)
+    #contributor_first_name.send_keys('DeWar')
+    #contributor_last_name.send_keys('Cookbook')
 
-    recipe_name.submit()
+    #driver.find_element("css-selector", "pull-right btn btn-primary ladda-button").click()
+    driver.find_element("xpath", "//*[text()='Contribute Recipe']").click()
+
+    time.sleep(5)
+
+    driver.find_element("xpath", "//*[text()='Submit New Recipe']").click()
+
+    #recipe_name.submit()
 
     #print(inputs)
 
     #inputs[0].send_keys(var1)
 
 
-fill_form('Andrew',2, 3)
+#fill_form('Andrew',2, 3)
+
+
+login_form('aaa@yahoo.com', 'aaa')
